@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS posts(
+    id UUID PRIMARY KEY NOT NULL,
+    owner_id UUID NOT NULL,
+    name TEXT NOT NULL, 
+    description TEXT NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    deleted_at TIMESTAMP
+)

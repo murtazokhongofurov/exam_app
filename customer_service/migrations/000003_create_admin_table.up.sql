@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS admin(
+   id UUID NOT NULL PRIMARY KEY,
+   admin_name TEXT NOT NULL UNIQUE, 
+   admin_password TEXT NOT NULL,
+   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+   deleted_at TIMESTAMP
+);

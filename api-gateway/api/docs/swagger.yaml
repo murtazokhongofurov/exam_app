@@ -1,0 +1,939 @@
+definitions:
+  customer.Address:
+    properties:
+      country:
+        type: string
+      id:
+        type: string
+      owner_id:
+        type: string
+      street:
+        type: string
+    type: object
+  customer.CustomerAll:
+    properties:
+      customers:
+        items:
+          $ref: '#/definitions/customer.CustomerListRes'
+        type: array
+    type: object
+  customer.CustomerInfo:
+    properties:
+      addresses:
+        items:
+          $ref: '#/definitions/customer.Address'
+        type: array
+      bio:
+        type: string
+      created_at:
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+      id:
+        type: string
+      password:
+        type: string
+      refresh_token:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  customer.CustomerListRes:
+    properties:
+      bio:
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+    type: object
+  customer.CustomerResponse:
+    properties:
+      access_token:
+        type: string
+      addresses:
+        items:
+          $ref: '#/definitions/customer.Address'
+        type: array
+      bio:
+        type: string
+      created_at:
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+      id:
+        type: string
+      password:
+        type: string
+      refresh_token:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  customer.GetAdminRes:
+    properties:
+      access_token:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  customer.GetModeratorRes:
+    properties:
+      access_token:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  customer.LoginResponse:
+    properties:
+      access_token:
+        type: string
+      addresses:
+        items:
+          $ref: '#/definitions/customer.Address'
+        type: array
+      bio:
+        type: string
+      created_at:
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+      id:
+        type: string
+      password:
+        type: string
+      refresh_token:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.Address:
+    properties:
+      country:
+        type: string
+      id:
+        type: string
+      owner_id:
+        type: string
+      street:
+        type: string
+    type: object
+  models.AddressReq:
+    properties:
+      country:
+        type: string
+      street:
+        type: string
+    type: object
+  models.CreatePost:
+    properties:
+      description:
+        type: string
+      medias:
+        items:
+          $ref: '#/definitions/models.Media'
+        type: array
+      name:
+        type: string
+      reviews:
+        items:
+          $ref: '#/definitions/models.Review'
+        type: array
+    type: object
+  models.CustomerRegister:
+    properties:
+      addresses:
+        items:
+          $ref: '#/definitions/models.AddressReq'
+        type: array
+      bio:
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+      password:
+        type: string
+    type: object
+  models.CustomerUpdateReq:
+    properties:
+      bio:
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+      id:
+        type: string
+    type: object
+  models.Error:
+    properties:
+      code:
+        type: integer
+      description:
+        type: string
+      error: {}
+    type: object
+  models.Media:
+    properties:
+      link:
+        type: string
+      name:
+        type: string
+      type:
+        type: string
+    type: object
+  models.MediaUpdate:
+    properties:
+      id:
+        type: string
+      link:
+        type: string
+      name:
+        type: string
+      type:
+        type: string
+    type: object
+  models.PostUpdate:
+    properties:
+      description:
+        type: string
+      id:
+        type: string
+      medias:
+        items:
+          $ref: '#/definitions/models.MediaUpdate'
+        type: array
+      name:
+        type: string
+    type: object
+  models.Review:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+      rating:
+        type: integer
+    type: object
+  models.ReviewUpdate:
+    properties:
+      description:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      rating:
+        type: integer
+    type: object
+  models.VerifyResponse:
+    properties:
+      accsee_token:
+        type: string
+      addresses:
+        items:
+          $ref: '#/definitions/models.Address'
+        type: array
+      bio:
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+      id:
+        type: string
+      password:
+        type: string
+      refresh_token:
+        type: string
+    type: object
+  post.Empty:
+    type: object
+  post.ListPostResponse:
+    properties:
+      posts:
+        items:
+          $ref: '#/definitions/post.PostSearchResp'
+        type: array
+    type: object
+  post.Media:
+    properties:
+      id:
+        type: string
+      link:
+        type: string
+      name:
+        type: string
+      post_id:
+        type: string
+      type:
+        type: string
+    type: object
+  post.PostInfo:
+    properties:
+      created_at:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      medias:
+        items:
+          $ref: '#/definitions/post.Media'
+        type: array
+      name:
+        type: string
+      owner_id:
+        type: string
+      reviews:
+        items:
+          $ref: '#/definitions/post.Review'
+        type: array
+      updated_at:
+        type: string
+    type: object
+  post.PostResp:
+    properties:
+      created_at:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      medias:
+        items:
+          $ref: '#/definitions/post.Media'
+        type: array
+      name:
+        type: string
+      owner_id:
+        type: string
+      reviews:
+        items:
+          $ref: '#/definitions/post.Review'
+        type: array
+      updated_at:
+        type: string
+    type: object
+  post.PostSearchResp:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+    type: object
+  post.Review:
+    properties:
+      created_at:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      owner_id:
+        type: string
+      post_id:
+        type: string
+      rating:
+        type: integer
+      udpated_at:
+        type: string
+    type: object
+  review.Empty:
+    type: object
+  review.ReviewResponse:
+    properties:
+      created_at:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      owner_id:
+        type: string
+      post_id:
+        type: string
+      rating:
+        type: integer
+      udpated_at:
+        type: string
+    type: object
+  review.Reviews:
+    properties:
+      reviews:
+        items:
+          $ref: '#/definitions/review.ReviewResponse'
+        type: array
+    type: object
+host: localhost:9090
+info:
+  contact:
+    email: gofurovmurtazoxon@gmail.com
+    name: Murtazoxon
+    url: https://t.me/murtazokhon_gofurov
+  description: This is exam server api server
+  termsOfService: 2 term exam
+  title: exam api
+  version: "2.0"
+paths:
+  /v1/admin/login/{admin_name}/{password}:
+    get:
+      consumes:
+      - application/json
+      description: Login admin
+      parameters:
+      - description: admin_name
+        in: path
+        name: admin_name
+        required: true
+        type: string
+      - description: password
+        in: path
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/customer.GetAdminRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Error'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/models.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Error'
+      summary: Login admin
+      tags:
+      - Admins
+  /v1/customer/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: this function delting customer
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/customer.CustomerResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Error'
+      security:
+      - BearerAuth: []
+      summary: this function delete
+      tags:
+      - Customer
+  /v1/customer/get/{id}:
+    get:
+      consumes:
+      - application/json
+      description: this function select the customers posts
+      parameters:
+      - description: user id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/customer.CustomerInfo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Error'
+      security:
+      - BearerAuth: []
+      summary: this function getting the customers posts
+      tags:
+      - Customer
+  /v1/customer/register:
+    post:
+      consumes:
+      - application/json
+      description: this registers customer
+      parameters:
+      - description: Register customer
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.CustomerRegister'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Error'
+      summary: register customer
+      tags:
+      - Customer
+  /v1/customer/update:
+    put:
+      consumes:
+      - application/json
+      description: this function updating the customers
+      parameters:
+      - description: Update Customer
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.CustomerUpdateReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/customer.CustomerResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Error'
+      security:
+      - BearerAuth: []
+      summary: this function update
+      tags:
+      - Customer
+  /v1/customers/{page}/{limit}/{order}/{search}:
+    get:
+      consumes:
+      - application/json
+      description: Customer list getting
+      parameters:
+      - description: page
+        in: query
+        name: page
+        type: string
+      - description: limit
+        in: query
+        name: limit
+        type: string
+      - description: Order format should be 'key-value' key->(column_name)
+        in: query
+        name: order
+        type: string
+      - description: Search format should be 'key-value'
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/customer.CustomerAll'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Error'
+      security:
+      - BearerAuth: []
+      summary: Customer list getting
+      tags:
+      - Customer
+  /v1/login/{email}/{password}:
+    get:
+      consumes:
+      - application/json
+      description: This function get login customer
+      parameters:
+      - description: email
+        in: path
+        name: email
+        required: true
+        type: string
+      - description: password
+        in: path
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/customer.LoginResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Error'
+      summary: Login Customer
+      tags:
+      - Customer
+  /v1/moderator/login/{name}/{password}:
+    get:
+      consumes:
+      - application/json
+      description: Login moderator
+      parameters:
+      - description: name
+        in: path
+        name: name
+        required: true
+        type: string
+      - description: password
+        in: path
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/customer.GetModeratorRes'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Error'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Error'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/models.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Error'
+      summary: Login moderator
+      tags:
+      - Admins
+  /v1/post:
+    post:
+      consumes:
+      - application/json
+      description: "post \tservice create"
+      parameters:
+      - description: Post
+        in: body
+        name: post
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreatePost'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/post.PostResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Error'
+      security:
+      - BearerAuth: []
+      summary: "Create \tPost"
+      tags:
+      - Post
+  /v1/post/delete/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: "this \tdeleting information of post"
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/post.Empty'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Error'
+      security:
+      - BearerAuth: []
+      summary: "Delete \tPost"
+      tags:
+      - Post
+  /v1/post/get/{id}:
+    get:
+      consumes:
+      - application/json
+      description: "this \twill display the post review information"
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/post.PostInfo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Error'
+      security:
+      - BearerAuth: []
+      summary: "Get \tPost Review"
+      tags:
+      - Post
+  /v1/post/list/{page}/{limit}/{search}:
+    get:
+      consumes:
+      - application/json
+      description: "lists \tposts"
+      parameters:
+      - description: page
+        in: query
+        name: page
+        type: string
+      - description: limit
+        in: query
+        name: limit
+        type: string
+      - description: search
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/post.ListPostResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Error'
+      security:
+      - BearerAuth: []
+      summary: "list \tpost"
+      tags:
+      - Post
+  /v1/post/update:
+    put:
+      consumes:
+      - application/json
+      description: "this \t\tupdating information of post"
+      parameters:
+      - description: Post
+        in: body
+        name: postbody
+        required: true
+        schema:
+          $ref: '#/definitions/models.PostUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/post.PostResp'
+        "400":
+          description: Bad Request
+          schema:
+            type: boject
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Error'
+      security:
+      - BearerAuth: []
+      summary: "Update \t\tPost"
+      tags:
+      - Post
+  /v1/review/delete/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: this deleting information of review
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/review.Empty'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Error'
+      security:
+      - BearerAuth: []
+      summary: Delete Review
+      tags:
+      - Review
+  /v1/review/get/{id}:
+    get:
+      consumes:
+      - application/json
+      description: this will display the review information
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/review.Reviews'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Error'
+      security:
+      - BearerAuth: []
+      summary: Get Review
+      tags:
+      - Review
+  /v1/review/update:
+    put:
+      consumes:
+      - application/json
+      description: this updating information of review
+      parameters:
+      - description: Review
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.ReviewUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/review.ReviewResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Error'
+      security:
+      - BearerAuth: []
+      summary: Update Review
+      tags:
+      - Review
+  /v1/verify/{email}/{code}:
+    get:
+      consumes:
+      - application/json
+      description: Verifys customer
+      parameters:
+      - description: email
+        in: path
+        name: email
+        required: true
+        type: string
+      - description: code
+        in: path
+        name: code
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.VerifyResponse'
+      summary: Verify customer
+      tags:
+      - Customer
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

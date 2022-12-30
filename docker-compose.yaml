@@ -1,0 +1,146 @@
+version: "3.8"
+
+services:
+  customer:
+    container_name: customer
+    build: ./customer_service
+    environment:
+      - POSTGRES_USER=developer
+      - POSTGRES_DATABASE=customerdata
+      - POSTGRES_PASSWORD=2002
+      - POSTGRES_HOST=localhost
+      - POSTGRES_PORT=5432
+      - ENVIRONMENT=develop
+      - LOG_LEVEL=debug
+      - CUSTOMER_SERVICE_HOST=customer
+      - CUSTOMER_SERVICE_PORT=3000
+      - POST_SERVICE_HOST=post
+      - POST_SERVICE_PORT=7000
+      - REVIEW_SERVICE_HOST=review
+      - REVIEW_SERVICE_PORT=5000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - post 
+      - review
+
+  post:
+    container_name: post
+    build: ./post_service
+    environment:
+      - POSTGRES_USER=developer
+      - POSTGRES_DATABASE=postdata
+      - POSTGRES_PASSWORD=2002
+      - POSTGRES_HOST=localhost
+      - POSTGRES_PORT=5432
+      - ENVIRONMENT=develop
+      - LOG_LEVEL=debug
+      - CUSTOMER_SERVICE_HOST=customer
+      - CUSTOMER_SERVICE_PORT=3000
+      - POST_SERVICE_HOST=post
+      - POST_SERVICE_PORT=7000
+      - REVIEW_SERVICE_HOST=review
+      - REVIEW_SERVICE_PORT=5000
+    ports:
+      - "7000:7000"
+    depends_on:
+      - kafka
+      - kafka-ui
+  
+  review:
+    container_name: review
+    build: ./review_service
+    environment:
+      - POSTGRES_USER=developer
+      - POSTGRES_DATABASE=reviewdata
+      - POSTGRES_PASSWORD=2002
+      - POSTGRES_HOST=localhost
+      - POSTGRES_PORT=5432
+      - ENVIRONMENT=develop
+      - LOG_LEVEL=debug
+      - CUSTOMER_SERVICE_HOST=customer
+      - CUSTOMER_SERVICE_PORT=3000
+      - POST_SERVICE_HOST=post
+      - POST_SERVICE_PORT=7000
+      - REVIEW_SERVICE_HOST=review
+      - REVIEW_SERVICE_PORT=5000
+    ports:
+      - "5000:5000"
+    depends_on:
+      - kafka-ui
+      - kafka
+      - post
+  
+  api:
+    container_name: api
+    build: ./api-gateway
+    depends_on:
+      - customer
+      - post
+      - review
+      - redis
+    environment:
+      - ENVIRONMENT=develop
+      - LOG_LEVEL=debug
+      - CUSTOMER_SERVICE_HOST=customer
+      - CUSTOMER_SERVICE_PORT=3000
+      - POST_SERVICE_HOST=post
+      - POST_SERVICE_PORT=7000
+      - REVIEW_SERVICE_HOST=review
+      - REVIEW_SERVICE_PORT=5000
+      - HTTP_PORT=:9090
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - SINGINGKEY=develop_2002
+      - CTX_TIME_OUT=7
+      - CSV_FILE_PATH=./config/casbin_rules.csv
+    ports:
+      - "9090:9090"
+    
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+      - "6378:6379"
+
+  kafka-ui:
+    container_name: kafka-ui
+    image: provectuslabs/kafka-ui:latest
+    ports:
+      - 8080:8080
+    depends_on:
+      - zookeeper
+      - kafka
+    
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
+
+  zookeeper:
+    container_name: zookeeper
+    image: confluentinc/cp-zookeeper:latest
+
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+    
+  kafka:
+    container_name: kafka
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: EXTERNAL_SAME_HOST://:29092,INTERNAL://:9092
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:9092,EXTERNAL_SAME_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL_SAME_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    

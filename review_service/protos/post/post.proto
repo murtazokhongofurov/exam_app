@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+package post;
+
+service PostService {
+    rpc CreatePost(PostReq) returns (PostResp);
+    rpc GetPostReview(ID) returns (PostInfo);
+    rpc UpdatePost(PostUp) returns (PostResp);
+    rpc DeletePost(ID) returns (Empty);
+    rpc DeleteCustomerPost(CustomerId) returns (Empty);
+    rpc ListPost(ListPostRequest) returns (ListPostResponse);
+}
+message Empty {}
+message ListPostResponse{
+    repeated PostSearchResp posts = 1;
+}
+message PostSearchResp {
+    string name = 1;
+    string description = 2;
+}
+message ListPostRequest {
+    int64 page = 1;
+    int64 limit = 2;
+    string value = 3;
+}
+
+message PostReq {
+    string id = 1;
+    string owner_id = 2; 
+    string name = 3;
+    string description = 4;
+    repeated Media medias = 5;
+    repeated Review reviews = 6;
+}
+
+message PostResp {
+    string id = 1;
+    string owner_id = 2; 
+    string name = 3;
+    string description = 4;
+    string created_at = 5;
+    string updated_at = 6;
+    repeated Media medias = 7;
+    repeated Review reviews = 8;
+}
+message PostUp {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    repeated Media medias = 4;
+}
+
+message PostInfo {
+    string id = 1;
+    string owner_id = 2; 
+    string name = 3;
+    string description = 4;
+    string created_at = 5;
+    string updated_at = 6;
+    repeated Media medias = 7;
+    repeated Review reviews = 8;
+}
+message Media {
+    string id = 1;
+    string post_id = 2;
+    string name = 3;
+    string link = 4;
+    string type = 5;
+
+}
+
+message ID {
+    string  postID = 1;
+}
+message CustomerId {
+    string owner_id = 1;
+}
+
+message Posts {
+    repeated PostResp posts = 1;
+}
+
+message Review {
+    string id = 1;
+    string post_id = 2;
+    string owner_id = 3;
+    string name = 4;
+    int64 rating = 5;
+    string description = 6;
+    string created_at = 7;
+    string udpated_at = 8;
+}
+
+message GetCustomerPostRequest {
+    string owner_id = 1;
+}

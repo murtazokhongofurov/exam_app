@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS moderator(
+    id UUID NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    deleted_at TIMESTAMP
+);
