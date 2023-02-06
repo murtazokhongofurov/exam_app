@@ -6,7 +6,7 @@ import (
 
 func SendEmail(to []string, message []byte) error {
 	from := "gofurovmurtazoxon@gmail.com"
-	password := "ihtizrusjypnultt"
+	password := "password"
 
 	// smtp server configuration.
 	smtpHost := "smtp.gmail.com"
@@ -19,6 +19,4 @@ func SendEmail(to []string, message []byte) error {
 	err := smtp.SendMail(smtpHost+":"+smtpPort, auth, from, to, message)
 	return err
 
-
 }
-
